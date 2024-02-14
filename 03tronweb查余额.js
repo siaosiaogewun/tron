@@ -9,7 +9,7 @@ const tronWeb = new TronWeb({
 tronWeb.setAddress('TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t');
 
 const tokenContractAddress = 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t';
-const accountAddress = 'TNPeeaaFB7K9cmo4uQpcU32zGK8G1NYqeL';
+const accountAddress = 'TJGkKUuvdpPKjUf3AqTr9jKfoNkj7iD1ms';
 
 const getTRC20TokenBalance = async (contractAddress, account) => {
     try {
@@ -27,5 +27,3 @@ const getTRC20TokenBalance = async (contractAddress, account) => {
     const balance = await getTRC20TokenBalance(tokenContractAddress, accountAddress);
     console.log(balance / 1000000);
 })();
-
-
