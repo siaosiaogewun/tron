@@ -30,6 +30,10 @@ async function readAddressesAndKeysFromFile(filePath) {
 
 // 主函数
 async function main() {
+
+
+
+
     const filePath = 'C:\\Users\\siaos\\Documents\\GitHub\\tron\\combined.txt'; // 替换为实际文件路径
     const addressesAndKeys = await readAddressesAndKeysFromFile(filePath);
     
@@ -45,10 +49,55 @@ async function main() {
         const solidityNode = new HttpProvider("https://api.shasta.trongrid.io");
         const eventServer = new HttpProvider("https://api.shasta.trongrid.io");
         const tronWeb = new TronWeb(fullNode, solidityNode, eventServer, privateKey);
+
+
+
+
+
+
+        tronWeb.setAddress(address);
+    
+        const tokenContractAddress = 'TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs';
+        const accountAddress = address;
+
+        const getTRC20TokenBalance = async (contractAddress, account) => {
+            try {
+                const accountHex = tronWeb.address.toHex(account);
+                const contract = await tronWeb.contract().at(contractAddress);
+                const balance = await contract.balanceOf(accountHex).call();
+                return tronWeb.toDecimal(balance._hex);
+            } catch (error) {
+                console.error('Error al obtener el balance de USDT:', error);
+                //throw error;
+                return -1; 
+            }
+        };
+    
+    
+    
+        const balance = await getTRC20TokenBalance(tokenContractAddress, accountAddress);
+        console.log(balance / 1000000);
+
+
+        if (balance > 0) {
+
+
+
+
+
+
+
+
     
         const CONTRACT = "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs";
-        const transferAmount = 1000;
+        const transferAmount = balance;
         const ACCOUNT = "TL1R6YacZuY2dVqNyreWexzb77Ct2QCick";
+
+
+
+
+
+
     
         try {
             const { abi } = await tronWeb.trx.getContract(CONTRACT);
@@ -68,8 +117,15 @@ async function main() {
             // Handle the error as needed, you may want to log the error or perform some other action.
             // The loop will continue to the next iteration even if an error occurs.
         }
+
+
+
     }
     
+
+
+}
+
 
 
 
