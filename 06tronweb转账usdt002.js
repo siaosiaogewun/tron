@@ -1,14 +1,14 @@
 const TronWeb = require('tronweb');
 const HttpProvider = TronWeb.providers.HttpProvider;
-const fullNode = new HttpProvider("https://api.trongrid.io");
+const fullNode = new HttpProvider("https://api.shasta.trongrid.io");
 // const fullNode = new HttpProvider("http://192.168.1.162:8090");
-const solidityNode = new HttpProvider("https://api.trongrid.io");
-const eventServer = new HttpProvider("https://api.trongrid.io");
-const privateKey = "3481E79956D4BD95F3..........78A847906DE588C145";
+const solidityNode = new HttpProvider("https://api.shasta.trongrid.io");
+const eventServer = new HttpProvider("https://api.shasta.trongrid.io");
+const privateKey = "8e4ba713657f8026b31e98707464f7de0d455f324b32f906c53010e6dfed17f2";
 const tronWeb = new TronWeb(fullNode, solidityNode, eventServer, privateKey);
 
 
-const CONTRACT = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"; // USDT
+const CONTRACT = "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs"; // USDT
 const ACCOUNT = "TEQH6py1Pi8YHNgi9cPMHCKLboBTUZrsYT";
 
 async function main() {
@@ -55,3 +55,5 @@ main().then(() => {
     .catch((err) => {
         console.trace(err);
     });
+
+    //这个版本的代码报错没修。
