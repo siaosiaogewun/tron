@@ -38,61 +38,38 @@ async function main() {
     for (const { address, privateKey } of addressesAndKeys) {
         console.log("开始迭代地址:", address);
         console.log("开始迭代私钥:", privateKey);
-
-
-
-
-
+    
         const TronWeb = require('tronweb');
         const HttpProvider = TronWeb.providers.HttpProvider;
         const fullNode = new HttpProvider("https://api.shasta.trongrid.io");
-        // const fullNode = new HttpProvider("http://192.168.1.162:8090");
         const solidityNode = new HttpProvider("https://api.shasta.trongrid.io");
         const eventServer = new HttpProvider("https://api.shasta.trongrid.io");
-        //const privateKey = privateKey;
         const tronWeb = new TronWeb(fullNode, solidityNode, eventServer, privateKey);
-
-
-
-
-
     
-        // trc20的合约 usdt的合约
         const CONTRACT = "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs";
-            
-
-        // 替换为实际转账金额
-        const transferAmount = 1000;  
-
-
-        //收款地址
+        const transferAmount = 1000;
         const ACCOUNT = "TL1R6YacZuY2dVqNyreWexzb77Ct2QCick";
-
-        const {
-            abi
-        } = await tronWeb.trx.getContract(CONTRACT);
-        // console.log(JSON.stringify(abi));
     
-        const contract = tronWeb.contract(abi.entrys, CONTRACT);
+        try {
+            const { abi } = await tronWeb.trx.getContract(CONTRACT);
+            const contract = tronWeb.contract(abi.entrys, CONTRACT);
     
-        const balance = await contract.methods.balanceOf(ACCOUNT).call();
-        console.log("balance:", balance.toString());
+            const balance = await contract.methods.balanceOf(ACCOUNT).call();
+            console.log("balance:", balance.toString());
     
-        const resp = await contract.methods.transfer(ACCOUNT, 1000).send();
-        console.log("transfer:", resp);
-
-        console.log("完成迭代地址:", address);
-
-
-        await delay(10000);
-
-
-
-        
-
-
+            const resp = await contract.methods.transfer(ACCOUNT, transferAmount).send();
+            console.log("transfer:", resp);
+    
+            console.log("完成迭代地址:", address);
+    
+            await delay(10000);
+        } catch (error) {
+            console.error("转账失败:", error);
+            // Handle the error as needed, you may want to log the error or perform some other action.
+            // The loop will continue to the next iteration even if an error occurs.
+        }
     }
-
+    
 
 
 
@@ -118,3 +95,5 @@ main().then(() => {
 
 });
 
+
+//更新即使中途有发送失败的循环也不会终止。
