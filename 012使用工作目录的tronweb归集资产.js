@@ -10,6 +10,7 @@ async function readAddressesAndKeysFromFile(filePath) {
 
         for (let i = 0; i < lines.length; i += 2) {
             const address = lines[i].trim();
+        
             const privateKey = lines[i + 1].trim();
             addressesAndKeys.push({ address, privateKey });
         }
