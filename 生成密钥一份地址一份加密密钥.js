@@ -7,7 +7,7 @@ const encryptedFilePath = 'encrypted_privateKeys.txt';
 const addressFilePath = 'addresses.txt'; // 新增地址文件路径
 
 const mnemonic = fs.readFileSync(mnemonicFilePath, 'utf-8').trim();
-const encryptionKeyBase64 = 'an4dlV9ju1ZM04R_o-2RDwl7fxX-nGZQRHYc5N5OchM=';
+const encryptionKeyBase64 = '6sZHONetOvqe2TEBu6tWsQ1mz0y5UTF9Pm7IZ1J4mmA=';
 const encryptionKey = Buffer.from(encryptionKeyBase64, 'base64');
 
 const algorithm = 'aes-256-cbc';
